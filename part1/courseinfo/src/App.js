@@ -1,3 +1,15 @@
+const Header = ({ course }) => (
+  <h1>{course}</h1>
+)
+
+const Content = ({ parts }) => (
+Object.values(parts).map(({ name, exercises }) => <p key={name}>{name} {exercises}</p>)
+)
+
+const Total = ({ parts }) => (
+  <p>Number of exercises {Object.values(parts).reduce((total, part) => total + part.exercises, 0)}</p>
+)
+
 const App = () => {
   const course = {
     name: 'Half Stack application development',
@@ -15,20 +27,7 @@ const App = () => {
         exercises: 14
       }
     ]
-  }
-
-  const Header = ({ course }) => (
-    <h1>{course}</h1>
-  )
-
-  const Content = ({ parts }) => (
-  Object.values(parts).map(({ name, exercises }) => <p>{name} {exercises}</p>)
-  )
-
-  const Total = ({ parts }) => (
-    <p>Number of exercises {Object.values(parts).reduce((total, part) => total + part.exercises, 0)}</p>
-  )
-  
+  }  
 
   return (
     <div>
