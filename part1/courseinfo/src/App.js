@@ -3,7 +3,7 @@ const Header = ({ course }) => (
 )
 
 const Content = ({ parts }) => (
-Object.values(parts).map(({ name, exercises }) => <p key={name}>{name} {exercises}</p>)
+  Object.values(parts).map(({ name, exercises }) => <p key={name}>{name} {exercises}</p>)
 )
 
 const Total = ({ parts }) => (
