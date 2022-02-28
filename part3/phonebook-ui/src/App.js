@@ -5,11 +5,11 @@ import Notification from './components/Notification'
 import Filter from './components/Filter'
 import phonebookService from './services/phonebook'
 
-const App = () => {
+function App() {
   const [persons, setPersons] = useState([])
   const [filter, setFilter] = useState('')
   const [message, setMessage] = useState('')
-  const [error, setError] = useState();
+  const [error, setError] = useState()
 
   useEffect(() => {
     phonebookService.getAll().then((phonebook) => {
@@ -21,18 +21,18 @@ const App = () => {
     message && setTimeout(() => {
       setMessage(null)
       setError(null)
-    }, 3000);
+    }, 3000)
   }, [message, error])
 
   const handleDeletePerson = (id) => {
     const remainingPersons = persons.filter((person) => person.id !== id)
     setPersons(remainingPersons)
-    setMessage(`${persons.find(person => person.id === id).name} removed`)
+    setMessage(`${persons.find((person) => person.id === id).name} removed`)
   }
 
   const handleAddPerson = (addedPerson) => {
-    const existingPerson = persons.find(({ id }) => id === addedPerson.id);
-    if(existingPerson) setPersons(persons.map(person => person.id === existingPerson.id ? addedPerson : person))
+    const existingPerson = persons.find(({ id }) => id === addedPerson.id)
+    if (existingPerson) setPersons(persons.map((person) => (person.id === existingPerson.id ? addedPerson : person)))
     else setPersons([...persons, addedPerson])
     setMessage(`Added ${addedPerson.name}`)
   }
@@ -46,7 +46,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Notification message={message} error={error} />
-      <Filter onChange={setFilter}/>
+      <Filter onChange={setFilter} />
       <h3>Add a new person</h3>
       <PersonForm persons={persons} onSubmit={handleAddPerson} onError={handleError} />
       <h3>Numbers</h3>

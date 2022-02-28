@@ -1,7 +1,11 @@
-const InputField = ({ label, value, onChange }) => (
+function InputField({ label, value, onChange }) {
+  return (
     <div>
-      {label} <input value={value} onChange={onChange} />
+      {label}
+      {' '}
+      <input value={value} onChange={onChange} />
     </div>
-  ) 
+  )
+}
 
-export default InputField;
+export default InputField

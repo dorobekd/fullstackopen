@@ -1,8 +1,8 @@
-import InputField from "./InputField";
+import InputField from './InputField'
 
-const Filter = ({ onChange }) => {
-    const handleChange = ({ target: { value }}) => onChange(value)
-    return <InputField label={'filter shown with'} onChange={handleChange} />
+function Filter({ onChange }) {
+  const handleChange = ({ target: { value } }) => onChange(value)
+  return <InputField label="filter shown with" onChange={handleChange} />
 }
 
-export default Filter;
+export default Filter
