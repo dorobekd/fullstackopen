@@ -48,7 +48,7 @@ const App = () => {
       <Notification message={message} error={error} />
       <Filter onChange={setFilter}/>
       <h3>Add a new person</h3>
-      <PersonForm persons={persons} onSubmit={handleAddPerson} />
+      <PersonForm persons={persons} onSubmit={handleAddPerson} onError={handleError} />
       <h3>Numbers</h3>
       <Persons persons={persons} filter={filter} onDelete={handleDeletePerson} onError={handleError} />
     </div>

@@ -2,7 +2,7 @@ import { useState } from "react"
 import phonebookService from "../services/phonebook"
 import InputField from "./InputField"
 
-const PersonForm = ({ persons, onSubmit }) => {
+const PersonForm = ({ persons, onSubmit, onError }) => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
 
@@ -14,19 +14,28 @@ const PersonForm = ({ persons, onSubmit }) => {
     event.preventDefault();
     const existingPerson = persons.find(({ name }) => name.toLowerCase() === newName.toLowerCase())
     if (existingPerson && window.confirm(`${newName} is already in the phonebook, replace the old number with a new one?`)) {
-      const updatedPerson = {...existingPerson, number: newNumber };
-        phonebookService.update(updatedPerson.id, updatedPerson).then((updatedPerson) => {
-          onSubmit(updatedPerson)
+        const personToUpdate = {...existingPerson, number: newNumber };
+        phonebookService.update(personToUpdate.id, personToUpdate)
+          .then((updatedPerson) => {
+            onSubmit(updatedPerson)
+            setNewName('');
+            setNewNumber('');
+          })
+          .catch(error => {
+            console.log(error.response.data)
+            onError(error.response.data.error)
+          })
+    } else {
+      const personToAdd = { name: newName, number: newNumber }
+      phonebookService.create(personToAdd)
+        .then((addedPerson) => {
+          onSubmit(addedPerson);
           setNewName('');
           setNewNumber('');
+        }).catch(error => {
+          console.log(error.response.data)
+          onError(error.response.data.error)
         })
-    } else if (newName !== '' && newNumber !== '') {
-      const addedPerson = { name: newName, number: newNumber, id: persons.length+1 }
-      phonebookService.create(addedPerson).then(() => {
-        onSubmit(addedPerson);
-        setNewName('');
-        setNewNumber('');
-      })
     }   
   }
 
@@ -35,7 +44,7 @@ const PersonForm = ({ persons, onSubmit }) => {
       <InputField label={'name:'} value={newName} onChange={handleNameChange} />
       <InputField label={'number:'} value={newNumber} onChange={handleNumberChange} />
       <div>
-        <button type="submit">Add</button>
+        <button type="submit" disabled={newName === '' || newNumber === ''}>Add</button>
       </div>
     </form>
   )
