@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import Notification from './components/Notification'
 import Filter from './components/Filter'
 import phonebookService from './services/phonebook'
 
-function App() {
+const App = () => {
   const [persons, setPersons] = useState([])
   const [filter, setFilter] = useState('')
   const [message, setMessage] = useState('')
@@ -18,10 +18,12 @@ function App() {
   }, [])
 
   useEffect(() => {
-    message && setTimeout(() => {
-      setMessage(null)
-      setError(null)
-    }, 3000)
+    if (message) {
+      setTimeout(() => {
+        setMessage(null)
+        setError(null)
+      }, 3000)
+    }
   }, [message, error])
 
   const handleDeletePerson = (id) => {
@@ -32,14 +34,15 @@ function App() {
 
   const handleAddPerson = (addedPerson) => {
     const existingPerson = persons.find(({ id }) => id === addedPerson.id)
-    if (existingPerson) setPersons(persons.map((person) => (person.id === existingPerson.id ? addedPerson : person)))
-    else setPersons([...persons, addedPerson])
+    if (existingPerson) {
+      setPersons(persons.map((person) => (person.id === existingPerson.id ? addedPerson : person)))
+    } else setPersons([...persons, addedPerson])
     setMessage(`Added ${addedPerson.name}`)
   }
 
-  const handleError = (message) => {
-    setError(message)
-    setMessage(message)
+  const handleError = (errorMessage) => {
+    setError(errorMessage)
+    setMessage(errorMessage)
   }
 
   return (
@@ -50,7 +53,12 @@ function App() {
       <h3>Add a new person</h3>
       <PersonForm persons={persons} onSubmit={handleAddPerson} onError={handleError} />
       <h3>Numbers</h3>
-      <Persons persons={persons} filter={filter} onDelete={handleDeletePerson} onError={handleError} />
+      <Persons
+        persons={persons}
+        filter={filter}
+        onDelete={handleDeletePerson}
+        onError={handleError}
+      />
     </div>
   )
 }

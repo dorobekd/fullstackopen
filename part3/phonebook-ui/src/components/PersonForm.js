@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import phonebookService from '../services/phonebook'
 import InputField from './InputField'
 
-function PersonForm({ persons, onSubmit, onError }) {
+const PersonForm = ({ persons, onSubmit, onError }) => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
 

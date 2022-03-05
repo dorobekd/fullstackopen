@@ -1,8 +1,9 @@
+import React from 'react'
 import phonebookService from '../services/phonebook'
 
-function Person({
+const Person = ({
   id, name, number, onDelete, onError,
-}) {
+}) => {
   const handleDelete = () => {
     if (window.confirm(`Delete ${name}?`)) {
       phonebookService.remove(id).then(() => {
@@ -18,7 +19,7 @@ function Person({
       {name}
       {' '}
       {number}
-      <button onClick={handleDelete}>Delete</button>
+      <button type="button" onClick={handleDelete}>Delete</button>
     </p>
   )
 }

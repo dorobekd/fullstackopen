@@ -44,6 +44,14 @@ module.exports = {
       'error', { before: true, after: true },
     ],
     'no-console': 0,
-    'func-style': ['error', 'function-declaration', { allowArrowFunctions: true }],
+    'func-style': ['error', 'declaration', { allowArrowFunctions: true }],
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function',
+      },
+    ],
+    'react/prop-types': 0,
   },
 }
