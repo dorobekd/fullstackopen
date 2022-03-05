@@ -1,5 +1,5 @@
 import { useState } from "react"
-import phonebookService from "../services/phonebook"
+import phonebookService from "../../../phonebook/src/services/phonebook"
 import InputField from "./InputField"
 
 const PersonForm = ({ persons, onSubmit }) => {
