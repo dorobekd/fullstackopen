@@ -4,11 +4,11 @@
     "description": "bloglist services",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js",
-        "dev": "nodemon index.js",
+        "start": "cross-env NODE_ENV=production node index.js",
+        "dev": "cross-env NODE_ENV=development nodemon index.js",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
-        "test": "jest --verbose"
+        "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
     },
     "author": "Damien Dorobek",
     "license": "MIT",
